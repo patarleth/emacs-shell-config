@@ -1,0 +1,10 @@
+xsom=c:/maven/repository/com/sun/xsom/xsom/20110809/xsom-20110809.jar
+relaxng=c:/maven/repository/relaxngDatatype/relaxngDatatype/20020414/relaxngDatatype-20020414.jar
+xsd2thrift=c:/maven/repository/com/github/tranchis/xsd2thrift/1.0/xsd2thrift-1.0.jar
+
+cp="$xsd2thrift;$relaxng;$xsom"
+main=com.github.tranchis.xsd2thrift.Main
+jcmd="-classpath $cp $main $@"
+echo $jcmd
+
+java $jcmd

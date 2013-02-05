@@ -1,0 +1,14 @@
+fullPath=$(readlink -f .)
+if [ $# -ne 1 ]
+then
+  echo "Usage: `basename $0` {dir}"
+  exit
+fi
+fullPath=$(readlink -f $1)
+cd $fullPath
+for D in */; do 
+    echo $D;
+    cd $D
+    mvn install
+    cd ..
+done

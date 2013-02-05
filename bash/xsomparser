@@ -1,0 +1,10 @@
+xsom=c:/maven/repository/com/sun/xsom/xsom/20110809/xsom-20110809.jar
+relaxng=c:/maven/repository/relaxngDatatype/relaxngDatatype/20020414/relaxngDatatype-20020414.jar
+cp="c:/projects/java/xsom/.;$xsom;$relaxng"
+
+main=XSOMXsdParser
+
+jcmd="-classpath $cp $main $@"
+echo $jcmd
+
+java $jcmd

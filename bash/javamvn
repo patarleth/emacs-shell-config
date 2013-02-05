@@ -1,0 +1,8 @@
+cp=".;c:/projects/java/maven/."
+
+main=MVNR
+
+jcmd="-cp $cp $main $@"
+echo $jcmd
+
+java $jcmd

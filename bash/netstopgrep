@@ -1,0 +1,29 @@
+if [ $# -gt 0 ]
+then
+  
+  #set newline as the delim
+  IFS=$'\n'
+  
+  trim() {
+      local var=$1
+      var="${var#"${var%%[![:space:]]*}"}"   # remove leading whitespace characters
+      var="${var%"${var##*[![:space:]]}"}"   # remove trailing whitespace characters
+      echo -n "$var"
+  }
+  
+  #loop over the running services filtered by grep
+  for v in $(net start | grep -i $1)
+  do
+    trimmedV=$(trim $v)
+    net stop $trimmedV
+  done
+  
+else
+
+  echo
+  echo stops windows services based on the output of regex passed to grep
+  echo
+  echo usage -
+  echo '  ' netstopgrep \'regexPattern\'
+
+fi

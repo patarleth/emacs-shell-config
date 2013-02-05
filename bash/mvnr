@@ -1,0 +1,19 @@
+if [ $# -eq 0 ]
+then
+  echo 'mvnr java.class.name arg1 arg2 arg3'
+else
+  MCLASS="\"-Dexec.mainClass=$1\""
+  ARGSCMD=""
+  ARGS=""
+  
+  if [ $# -gt 1 ];
+  then
+    ARGS=${@:2:$#}
+    ARGSCMD=" \"-Dexec.args=$ARGS\""
+  fi
+  
+  foo="mvn -X exec:java $MCLASS$ARGSCMD"
+  foo="mvn exec:java $MCLASS$ARGSCMD "
+  echo $foo
+  $foo
+fi

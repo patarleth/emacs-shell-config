@@ -1,0 +1,9 @@
+if [ $# -lt 1 ]
+then
+    echo 'thriftfolder filenamepattern'
+else
+    for i in $(ls $1)
+    do
+        thrift --gen java $i
+    done
+fi
