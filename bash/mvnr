@@ -11,9 +11,17 @@ else
     ARGS=${@:2:$#}
     ARGSCMD=" \"-Dexec.args=$ARGS\""
   fi
-  
+
+  if [ -d "target/lib" ]; then
+    MAVEN_OPTS=-Djava.library.path=target/lib
+    PATH="target/lib;$PATH"
+  else
+    MAVEN_OPTS=-Djava.library.path=target
+    PATH="target;$PATH"
+  fi
+
   foo="mvn -X exec:java $MCLASS$ARGSCMD"
-  foo="mvn exec:java $MCLASS$ARGSCMD "
+  foo="mvn exec:java $MCLASS$ARGSCMD"
   echo $foo
   $foo
 fi
