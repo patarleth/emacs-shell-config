@@ -1,0 +1,22 @@
+devDisk=$(echo $(drutil status | grep 'Type: DVD.*Name:') | sed 's/.* Name: \(.*\)/\1/g')
+echo "DVD - $devDisk"
+
+sudo umount $devDisk
+
+filename=$(echo $(diskutil info $devDisk | egrep -x ' +Escaped with Unicode:[^/]+') | sed 's/.*:[^a-zA-Z]*\(.*\)/\1/g')
+echo "DVD Volume Name-->$filename<--"
+
+cd ~/Documents
+
+if [ -f "$filename.iso" ]
+then
+  echo "deleting existing $filename.iso"
+  rm "$filename.iso"
+fi
+
+starttime=$(date "+%H:%M:%S")
+echo "began ripping ~/Documents/$filename.iso at $starttime"
+
+dd "if=$devDisk" "of=$filename.iso" bs=2048 conv=sync,notrunc
+
+drutil eject
