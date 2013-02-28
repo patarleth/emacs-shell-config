@@ -1,14 +1,18 @@
-fullPath=$(readlink -f .)
+fullPath=$(greadlink -f .)
 if [ $# -ne 1 ]
 then
   echo "Usage: `basename $0` {dir}"
   exit
 fi
-fullPath=$(readlink -f $1)
+fullPath=$(greadlink -f $1)
 cd $fullPath
 for D in */; do 
     echo $D;
-    cd $D
-    mvn install
-    cd ..
+    if [ -a "$D/pom.xml" ]; then
+        cd $D
+    	mvn install
+    	cd ..
+    else
+	echo pom.xml does not exist
+    fi
 done
