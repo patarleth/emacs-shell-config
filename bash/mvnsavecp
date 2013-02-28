@@ -15,7 +15,7 @@ if [ -a ./pom.xml ]; then
     generateCpTxt=0
     #if cp.txt exists
     if [ -a $cpTxtLocation ]; then 
-      cpTxtTimestamp=$(stat -f "%m" -t "%s" pom.xml)
+      cpTxtTimestamp=$(stat -f "%m" -t "%s" $cpTxtLocation)
       #if cp.txt timestamp is the same as pom.xml timestamp do nothing
       if [ $pomTimestamp == $cpTxtTimestamp ]; then
           generateCpTxt=0
