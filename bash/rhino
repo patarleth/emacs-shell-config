@@ -1,0 +1,10 @@
+#java -jar ~/rhino/js.jar $@
+cp=.
+
+if [ -a ./pom.xml ]; then
+  cp=.:$(mvnsavecp)
+fi
+
+export CLASSPATH=~/jline-1.0/jline-1.0.jar:~/rhino1_7R4/js.jar:$cp
+
+java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main $@
