@@ -1,0 +1,10 @@
+cp=.
+
+if [ -a ./pom.xml ]; then
+  cp=.:$(mvnsavecp)
+  cp=target/classes:$cp
+fi
+
+export CLASSPATH=~/jline-0.9.94/jline-0.9.94.jar:~/rhino1_7R4/js.jar:$cp
+
+java $@

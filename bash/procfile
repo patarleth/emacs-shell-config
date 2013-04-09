@@ -1,0 +1,32 @@
+export ESPN_API_KEY=v37fddaw8ge4knf8yqq7nnd9
+
+profile=web
+
+if [ $1 ]
+then
+ profile=$1
+fi
+PORT=8080
+if [ $2 ]
+then
+ PORT=$2
+fi
+
+pfile=$(cat Procfile)
+
+#Set the field separator to new line
+IFS=$'\n'
+newline='
+'
+
+for item in $pfile
+do  
+    #echo "Item: $item"
+
+    if [[ $item = $profile* ]]
+    then
+        sedCmd="s/.*:[[:space:]][[:space:]]*\(.*\)/\1/g"
+        cmd=$(echo $item|sed "$sedCmd")
+        eval $cmd
+    fi
+done
