@@ -5,6 +5,8 @@ if [ -a ./pom.xml ]; then
   cp=.:$(mvnsavecp)
 fi
 
-export CLASSPATH=~/jline-1.0/jline-1.0.jar:~/rhino1_7R4/js.jar:$cp
+export CLASSPATH=~/jline-0.9.94/jline-0.9.94.jar:~/rhino1_7R4/js.jar:$cp
+#export CLASSPATH=~/jline-2.11/jline-2.11.jar:~/rhino1_7R4/js.jar:$cp
 
+#java jline.console.internal.ConsoleRunner org.mozilla.javascript.tools.shell.Main $@
 java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main $@
