@@ -1,0 +1,74 @@
+mvnLoc=$(mvnlocation)
+echo "       mvn location:  $mvnLoc"
+
+mvnHome=$(mvnhome $mvnlocation)
+
+echo "           mvn home:  $mvnHome"
+
+localRepository=$(mvnlocalrepo $mvnHome)
+
+if [ $localRepository ]
+then    
+    echo "local repo location:  $localRepository"
+    echo
+
+    if [ -z $1 ]
+    then
+        echo "sigh, need a group name...."
+    else
+        groupDir=$(echo $1 | sed 's/\./\//g')
+        echo "group dir:  $groupDir"
+        
+        cpPath="$groupDir"
+        
+        artifact=
+        
+        if [ -z $2 ]
+        then
+            echo "artifact not specified"
+        else
+            artifact=$2
+            cpPath="$cpPath/$artifact"
+        fi
+        
+        version=
+        
+        if [ -z $3 ]
+        then
+            echo "version not specified"
+        else
+            version=$3
+            cpPath="$cpPath/$version"
+        fi
+        
+        echo "cpPath: $cpPath"
+        
+        fullPath="$localRepository/$cpPath"
+        if [ -d $fullPath ]
+        then
+            echo "$fullPath exists"
+            if [ -d ./repo ]
+            then
+                echo "local repo directory exists"
+            else
+                mkdir ./repo
+            fi
+
+            rmDSStore ./repo
+            
+            destDir="./repo/$cpPath"
+            if [ -d $destDir ]
+            then
+                echo "destDir $destDir exists"
+            else
+                mkdir -p $destDir
+            fi
+            
+            cp -R $fullPath $destDir
+        else
+            echo "$fullPath DOES NOT exists!"
+        fi
+    fi
+else
+    echo "localRepository not found"
+fi

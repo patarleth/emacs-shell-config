@@ -1,0 +1,18 @@
+mvnHome=
+if [ $1 ]
+then
+    mvnHome=$1
+else    
+    mvnLoc=$(mvnlocation)
+    mvnHome=$(mvnhome $mvnLoc)
+fi
+
+settingsXml="$mvnHome/conf/settings.xml"
+
+localRepository=
+if [ -f $settingsXml ]
+then
+    localRepository=$(xpath $settingsXml '//localRepository/text()' 2>/dev/null)
+fi
+
+echo $localRepository

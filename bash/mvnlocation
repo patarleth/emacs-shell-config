@@ -1,0 +1,6 @@
+mvnLoc=$(ls -l $(which mvn) | sed 's/.* -> \(.*\)/\1/')
+if [ -z $mvnLoc ]
+then
+    mvnLoc=$(which mvn)
+fi
+echo $mvnLoc

@@ -1,0 +1,10 @@
+searchDir=.
+if [ $1 ]
+then
+    searchDir=$1
+fi
+
+for x in $(find $searchDir -iname '.DS_Store')
+do 
+    rm $x
+done

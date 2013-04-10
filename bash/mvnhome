@@ -1,0 +1,10 @@
+mvnLoc=
+if [ $1 ]
+then
+    mvnLoc=$1
+else    
+    mvnLoc=$(mvnlocation)
+fi
+mvnHome=$(echo $mvnLoc | sed 's/\(.*\)\/bin\/mvn/\1/')
+
+echo $mvnHome
