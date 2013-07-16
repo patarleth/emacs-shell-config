@@ -1,0 +1,100 @@
+#default dirs and levels
+SEARCH_DIRECTORY=.
+RECURSIVE_SEARCH=0
+SCRIPT_LOG_LEVEL=0
+
+#create arrays to hold script arguments and options
+SCRIPT_ARGS=()
+SCRIPT_OPTS=()
+
+#push argument value to the correct SCRIPT_ array
+for arg in $@; do
+    if [[ $arg = -* ]]; then
+        SCRIPT_OPTS+=($arg)
+    else
+        SCRIPT_ARGS+=($arg)            
+    fi
+done
+
+#assign the argument and option counts to variables
+ARG_COUNT="${#SCRIPT_ARGS[@]}"
+OPT_COUNT="${#SCRIPT_OPTS[@]}"
+
+#define log levels and a logging function
+LOG_TRACE=2
+LOG_DEBUG=1
+LOG_INFO=0
+
+logger() {
+    vLevel=$1
+    if ((vLevel <= SCRIPT_LOG_LEVEL)); then echo "${@:2}"; fi
+}
+
+# if at least one OPTION passed to script then assign option values (useful for trace logging script)
+if ((OPT_COUNT > 0)); then
+    for opt in ${SCRIPT_OPTS[@]}; do
+        if [[ $opt = '-dir='* ]]; then
+            dir=${opt:5}
+            cd $SEARCH_DIRECTORY;
+        fi
+        if [[ $opt = '-R' ]]; then
+            RECURSIVE_SEARCH=1
+        fi
+        if [[ $opt = '-v' ]]; then
+            SCRIPT_LOG_LEVEL=$LOG_DEBUG
+        fi
+        if [[ $opt = '-TRACE' ]]; then
+            SCRIPT_LOG_LEVEL=$LOG_TRACE
+        fi
+    done
+fi
+
+logger $LOG_DEBUG "setting working folder to $SEARCH_DIRECTORY"
+logger $LOG_DEBUG "ARG_COUNT $ARG_COUNT OPT_COUNT $OPT_COUNT"
+logger $LOG_TRACE hello from trace level logging
+
+#finally! run the script if a java class name is passed to script
+if ((ARG_COUNT > 0)); then
+    
+    #save first arg to variable for pretty printing later
+    classname=${SCRIPT_ARGS[0]}
+    logger $LOG_TRACE "classname $classname"   
+
+    #convert class name to path returned by jar -tf
+    classpath=$(echo $classname | sed -e 's/\./\//g')
+
+    logger $LOG_TRACE "classpath $classpath"   
+    logger $LOG_INFO "searching all jars in the current directory for $classname"
+    
+    #foreach file ending in .jar in the current directory
+    if ((RECURSIVE_SEARCH > 0)); then
+        logger $LOG_TRACE "using find to build jarList"
+        jarList=$(find . -iname '*jar')
+    else
+        jarList=*\.jar
+    fi
+
+    #foreach jar found by find or shell expansion list the jar contents to shell variable
+    #grep the results and store the number of matches found to grepResult variable
+    #if the at least one grepResult echo the jar name and list all matches in jar
+    for jarName in $jarList; do         
+        logger $LOG_DEBUG $jarName
+        
+        #list the jar, pipe to grep looking for the classpath, return number of greResults found
+        grepResult=$(jar -tf $jarName | grep -c "$classpath")
+        logger $LOG_TRACE "grepResult $grepResult"
+       
+        #if at least one found the print the jar and redo the grep to print the files that match
+        if ((grepResult > 0)); then
+            if ((grepResult > 1)); then
+                echo "     FOUND $grepResult MATCHES in - $jarName"
+            else
+                echo "     FOUND $grepResult MATCH in - $jarName"
+            fi
+            jar -tf $jarName | grep "$classpath"
+        fi
+        
+    done
+else
+    echo "usage: findJarWithClass foo.bar.Foobar"
+fi
