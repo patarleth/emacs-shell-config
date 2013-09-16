@@ -1,7 +1,7 @@
 emacs-shell-config
 ==================
 
-1st - install git, just do it even if you're not using right now.
+first off - install git. Just do it even if you're not using right now.
 
 new to bash on osx? copy [[https://github.com/patarleth/emacs-shell-config/blob/master/bash/.profile]] to ~/.profile
 and 
