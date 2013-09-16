@@ -113,6 +113,6 @@ git_prompt() {
     echo -e "$no_colour($prompt$white)$no_colour"
 }
 
-PS1="\n${WHITE}\342\224\214($(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]\h'; else echo '\[\033[01;34m\]\u@\h'; fi)${WHITE})\$([[ \$? != 0 ]] && echo \"\342\224\200(${RED}\342\234\227${WHITE})\")\342\224\200(${BLUE}\@ \d${WHITE})\$(__git_ps1 \" ${WHITE}~ `git_prompt`\")\n\342\224\224\342\224\200(${LIGHT_GREEN}\w${WHITE})\342\224\200(${LIGHT_GREEN}\$(ls -1 | wc -l | sed 's: ::g') files, \$(ls -lah | grep -m 1 total | sed 's/total //')b${WHITE})\342\224\200> ${COLOR_NONE}"
+PS1="\n${WHITE}\342\224\214($(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]\h'; else echo '\[\033[01;34m\]\u@\h'; fi)${WHITE})\$([[ \$? != 0 ]] && echo \"\342\224\200(${RED}\342\234\227${WHITE})\")\342\224\200(${BLUE}\@ \d${WHITE})\$(__git_ps1 \" ${WHITE}~ \`git_prompt\`\")\n\342\224\224\342\224\200(${LIGHT_GREEN}\w${WHITE})\342\224\200(${LIGHT_GREEN}\$(ls -1 | wc -l | sed 's: ::g') files, \$(ls -lah | grep -m 1 total | sed 's/total //')b${WHITE})\342\224\200> ${COLOR_NONE}"
 
 export LDFLAGS="-L/opt/local/lib"
