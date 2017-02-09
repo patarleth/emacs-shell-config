@@ -1,15 +1,15 @@
-# MacPorts Installer addition on 2013-02-15_at_21:50:18: adding an appropriate PATH variable for use with MacPorts.
 export EDITOR=emacs
-export PATH=/opt/local/bin:/opt/local/sbin:/Applications/dart-sdk/bin:$PATH
+export PATH=/opt/local/bin:/opt/local/sbin:/Users/arlethp1/bin:$PATH
 # Finished adapting your PATH environment variable for use with MacPorts.
 #export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.7.0)
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0)
 alias ls="ls -G"
 set -o emacs
-# http://maketecheasier.com/8-useful-and-interesting-bash-prompts/2009/09/04
 
-source /usr/share/git-core/git-completion.bash
-source /usr/share/git-core/git-prompt.sh
+# https://github.com/bobthecow/git-flow-completion/wiki/Install-Bash-git-completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
 
 # The various escape codes that we can use to color our prompt.
         RED="\[\033[0;31m\]"
@@ -26,11 +26,11 @@ git_prompt() {
     git_status_output=$(git status 2> /dev/null) || return
 
     branch_name() {
-        sed -n 's/# On branch //p' <<< "$git_status_output"
+        sed -n 's/On branch //p' <<< "$git_status_output"
     }
 
     number_of_commits() {
-        local branch_prefix='# Your branch is '
+        local branch_prefix='On branch '
         local branch_suffix='by [[:digit:]]+'
         if [[ "$git_status_output" =~ ${branch_prefix}"$1".*${branch_suffix} ]]
         then
@@ -51,12 +51,12 @@ git_prompt() {
 
     local_changes() {
         local added='# Changes to be committed'
-        local not_added='# Changes not staged for commit'
+        local not_added='modified: '
         match_against_status "($added|$not_added)"
     }
 
     untracked_files() {
-        match_against_status '# Untracked files'
+        match_against_status 'Untracked files'
     }
 
     dashline() {

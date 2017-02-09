@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+find . -iname '*~' -type f -exec rm {} \;

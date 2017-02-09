@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+find . -iname '*.iml' -type f -exec rm {} \;
+find . -iname '.idea' -type d -exec rm -rf {} \;

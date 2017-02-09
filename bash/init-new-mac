@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+mkdir ~/temp
+mkdir ~/bin
+
+INIT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo $INIT_DIR
+
+#install brew
+command -v brew >/dev/null 2>&1 || { \
+	echo "I require brew installing"
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+}
+
+#install jq
+command -v jq >/dev/null 2>&1 || { \
+	echo "I require jq installing"
+	brew install jq
+}
+
+#install coreutils/greadlink
+command -v greadlink >/dev/null 2>&1 || { \
+	echo "I require coreutils installing"
+	brew install coreutils findutils
+}
+
+#install pip
+command -v pip >/dev/null 2>&1 || { \
+	echo "I required pip installing"
+	curl -o ~/temp/get-pip.ph https://bootstrap.pypa.io/get-pip.py
+	python ~/temp/get-pip.py
+}
+
+#brew install git && brew install bash-completion
+cp $INIT_DIR/.profile ~/.profile
+
+if [ ! -f ~/bin/chfileext ]; then cp $INIT_DIR/chfileext ~/bin/chfileext; fi
+if [ ! -f ~/bin/cpmvnrepo ]; then cp $INIT_DIR/cpmvnrepo ~/bin/cpmvnrepo; fi
+if [ ! -f ~/bin/fileinfo ]; then cp $INIT_DIR/fileinfo ~/bin/fileinfo; fi
+if [ ! -f ~/bin/findJarWithClass ]; then cp $INIT_DIR/findJarWithClass ~/bin/findJarWithClass; fi
+if [ ! -f ~/bin/javamvn ]; then cp $INIT_DIR/javamvn ~/bin/javamvn; fi
+if [ ! -f ~/bin/mvn ]; then cp $INIT_DIR/mvn ~/bin/mvn; fi
+if [ ! -f ~/bin/mvnall ]; then cp $INIT_DIR/mvnall ~/bin/mvnall; fi
+if [ ! -f ~/bin/mvncp ]; then cp $INIT_DIR/mvncp ~/bin/mvncp; fi
+if [ ! -f ~/bin/mvngencp ]; then cp $INIT_DIR/mvngencp ~/bin/mvngencp; fi
+if [ ! -f ~/bin/mvnhome ]; then cp $INIT_DIR/mvnhome ~/bin/mvnhome; fi
+if [ ! -f ~/bin/mvnlocalrepo ]; then cp $INIT_DIR/mvnlocalrepo ~/bin/mvnlocalrepo; fi
+if [ ! -f ~/bin/mvnlocation ]; then cp $INIT_DIR/mvnlocation ~/bin/mvnlocation; fi
+if [ ! -f ~/bin/mvnr ]; then cp $INIT_DIR/mvnr ~/bin/mvnr; fi
+if [ ! -f ~/bin/mvnsavecp ]; then cp $INIT_DIR/mvnsavecp ~/bin/mvnsavecp; fi
+if [ ! -f ~/bin/netstartgrep ]; then cp $INIT_DIR/netstartgrep ~/bin/netstartgrep; fi
+if [ ! -f ~/bin/netstopgrep ]; then cp $INIT_DIR/netstopgrep ~/bin/netstopgrep; fi
+if [ ! -f ~/bin/procfile ]; then cp $INIT_DIR/procfile ~/bin/procfile; fi
+if [ ! -f ~/bin/rhino ]; then cp $INIT_DIR/rhino ~/bin/rhino; fi
+if [ ! -f ~/bin/ripSuperDriveToISO ]; then cp $INIT_DIR/ripSuperDriveToISO ~/bin/ripSuperDriveToISO; fi
+if [ ! -f ~/bin/rm-intellij ]; then cp $INIT_DIR/rm-intellij ~/bin/rm-intellij; fi
+if [ ! -f ~/bin/rmDSStore ]; then cp $INIT_DIR/rmDSStore ~/bin/rmDSStore; fi
+if [ ! -f ~/bin/rme ]; then cp $INIT_DIR/rme ~/bin/rme; fi
