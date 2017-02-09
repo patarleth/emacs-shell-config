@@ -36,6 +36,11 @@ if [ ! -d /Applications/iTerm.app ]; then
         brew cask install iterm2
 fi
 
+if [ ! -d /Applications/Slack.app ]; then
+        echo "I require slack, installing"
+	brew cask install slack
+fi
+
 #install jq
 command -v jq >/dev/null 2>&1 || { \
 	echo "I require jq, installing"
@@ -46,6 +51,12 @@ command -v jq >/dev/null 2>&1 || { \
 command -v emacs >/dev/null 2>&1 || { \
 	echo "I require emacs, installing"
 	brew install emacs
+}
+
+#install xmlstarlet
+command -v xmlstarlet >/dev/null 2>&1 || { \
+	echo "I require xmlstarlet, installing"
+	brew install xmlstarlet
 }
 
 #install tmux
