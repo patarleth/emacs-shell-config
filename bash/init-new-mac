@@ -8,30 +8,47 @@ echo $INIT_DIR
 
 #install brew
 command -v brew >/dev/null 2>&1 || { \
-	echo "I require brew installing"
+	echo "I require brew, installing"
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
+#install javac
+command -v javac >/dev/null 2>&1 || { \
+	echo "I require java 8, installing"
+	brew cask install java
+}
+
+if [ ! -d /Applications/IntelliJ\ IDEA\ CE.app ]; then
+	echo "I require intellij, installing"
+	brew cask install intellij-idea-ce
+fi
+
+if [ ! -d /Applications/iTerm.app ]; then
+	echo "I require iterm2, installing"
+        brew cask install iterm2
+fi
+
 #install jq
 command -v jq >/dev/null 2>&1 || { \
-	echo "I require jq installing"
+	echo "I require jq, installing"
 	brew install jq
 }
 
 #install coreutils/greadlink
 command -v greadlink >/dev/null 2>&1 || { \
-	echo "I require coreutils installing"
+	echo "I require coreutils, installing"
 	brew install coreutils findutils
 }
 
 #install pip
 command -v pip >/dev/null 2>&1 || { \
-	echo "I required pip installing"
+	echo "I require pip, installing"
 	curl -o ~/temp/get-pip.ph https://bootstrap.pypa.io/get-pip.py
 	python ~/temp/get-pip.py
 }
 
-#brew install git && brew install bash-completion
+brew install git && brew install bash-completion
+
 cp $INIT_DIR/.profile ~/.profile
 
 if [ ! -f ~/bin/chfileext ]; then cp $INIT_DIR/chfileext ~/bin/chfileext; fi
