@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-mkdir ~/temp
-mkdir ~/bin
+if [ ! -d ~/temp ]; then mkdir ~/temp; fi
+if [ ! -d ~/bin ]; then mkdir ~/bin; fi
+if [ ! -d ~/projects ]; then mkdir ~/projects; fi
 
 INIT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo $INIT_DIR
+#echo $INIT_DIR
 
 #install brew
 command -v brew >/dev/null 2>&1 || { \
@@ -16,6 +17,13 @@ command -v brew >/dev/null 2>&1 || { \
 command -v javac >/dev/null 2>&1 || { \
 	echo "I require java 8, installing"
 	brew cask install java
+}
+
+#install maven 3.3.9
+command -v mvn > /dev/null 2>&1 || { \
+	curl -o ~/temp/maven.zip http://mirrors.koehn.com/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip
+	unzip ~/temp/maven.zip -d ~/.
+	ln -s ~/apache-maven-3.3.9 ~/maven
 }
 
 if [ ! -d /Applications/IntelliJ\ IDEA\ CE.app ]; then
@@ -34,6 +42,12 @@ command -v jq >/dev/null 2>&1 || { \
 	brew install jq
 }
 
+#install tmux
+command -v tmux >/dev/null 2>&1 || { \
+	echo "I require tmux, installing"
+	brew install tmux
+}
+
 #install coreutils/greadlink
 command -v greadlink >/dev/null 2>&1 || { \
 	echo "I require coreutils, installing"
@@ -47,7 +61,8 @@ command -v pip >/dev/null 2>&1 || { \
 	python ~/temp/get-pip.py
 }
 
-brew install git && brew install bash-completion
+if ! brew info bash-completion &>/dev/null ; then echo brew install git && brew install bash-completion; fi
+
 
 cp $INIT_DIR/.profile ~/.profile
 
