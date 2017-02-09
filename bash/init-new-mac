@@ -41,6 +41,11 @@ if [ ! -d /Applications/Slack.app ]; then
 	brew cask install slack
 fi
 
+if [ ! -d '/Applications/Google Chrome.app' ]; then
+        echo "I require chrome, installing"
+       	brew cask install google-chrome
+fi
+
 #install jq
 command -v jq >/dev/null 2>&1 || { \
 	echo "I require jq, installing"
