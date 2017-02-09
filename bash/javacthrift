@@ -1,1 +1,0 @@
-javac -classpath '.;/c:/maven/repository/org/apache/thrift/libthrift/0.9.0/libthrift-0.9.0.jar;c:/maven/repository/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar' $@
