@@ -13,6 +13,9 @@ command -v brew >/dev/null 2>&1 || { \
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
+brew tap caskroom/versions
+brew doctor
+
 #install javac
 command -v javac >/dev/null 2>&1 || { \
 	echo "I require java 8, installing"
@@ -31,9 +34,14 @@ if [ ! -d /Applications/IntelliJ\ IDEA\ CE.app ]; then
 	brew cask install intellij-idea-ce
 fi
 
+#if [ ! -d /Applications/iTerm.app ]; then
+#	echo "I require iterm2, installing"
+#        brew cask install iterm2
+#fi
+
 if [ ! -d /Applications/iTerm.app ]; then
-	echo "I require iterm2, installing"
-        brew cask install iterm2
+        echo "I require iterm2 beta, installing"
+        brew cask install iterm2-beta
 fi
 
 if [ ! -d /Applications/Slack.app ]; then
@@ -44,6 +52,11 @@ fi
 if [ ! -d '/Applications/Google Chrome.app' ]; then
         echo "I require chrome, installing"
        	brew cask install google-chrome
+fi
+
+if [ ! -d '/Applications/Google Chrome Canary.app' ]; then
+        echo "I require chrome canary, installing"
+	brew cask install google-chrome-canary
 fi
 
 #install jq
