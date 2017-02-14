@@ -59,6 +59,18 @@ if [ ! -d '/Applications/Google Chrome Canary.app' ]; then
 	brew cask install google-chrome-canary
 fi
 
+if [ ! -d '/Applications/Docker.app' ]; then
+    echo "I require docker, installing"
+    brew cask install docker
+
+    docker pull bde2020/flink-master
+    docker pull bde2020/flink-worker
+    docker pull elasticsearch
+    docker pull wurstmeister/zookeeper
+    docker pull cassandra
+    docker pull mysql/mysql-server
+fi
+
 #install jq
 command -v jq >/dev/null 2>&1 || { \
 	echo "I require jq, installing"
@@ -94,6 +106,16 @@ command -v pip >/dev/null 2>&1 || { \
 	echo "I require pip, installing"
 	curl -o ~/temp/get-pip.ph https://bootstrap.pypa.io/get-pip.py
 	python ~/temp/get-pip.py
+}
+
+command -v aws >/dev/null 2>&2 || { \
+	echo "I require aws, installing"
+	pip install --upgrade --user awscli
+}
+
+command -v gpg >/dev/null 2>&2 || { \
+	echo "I require gpg, installing"
+	brew install gpg
 }
 
 if ! brew info bash-completion &>/dev/null ; then echo brew install git && brew install bash-completion; fi
