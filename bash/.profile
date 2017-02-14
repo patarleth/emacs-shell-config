@@ -6,6 +6,25 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0)
 alias ls="ls -G"
 set -o emacs
 
+cd-pom() {
+    found=""; x=`pwd`;
+    while [ "$x" != "/" ] && [ "$found" == "" ]
+    do
+	x=`dirname "$x"`;
+	found=$(find "$x" -maxdepth 1 -name pom.xml )
+    done
+
+    if [ ! "$found" == "" ]; then
+	#echo $found in $x
+	echo $x
+	cd "$x"
+    else
+	echo "pom.xml not found"
+    fi
+
+    
+}
+
 # https://github.com/bobthecow/git-flow-completion/wiki/Install-Bash-git-completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion

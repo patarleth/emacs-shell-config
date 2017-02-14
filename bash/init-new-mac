@@ -79,6 +79,11 @@ if [ ! -d '/Applications/DevCenter' ]; then
     echo "might work now...    so try it"
 fi
 
+if [ ! -d '/Applications/GitHub Desktop.app' ]; then
+    brew cask install github-desktop
+fi
+
+
 #install jq
 command -v jq >/dev/null 2>&1 || { \
 	echo "I require jq, installing"
