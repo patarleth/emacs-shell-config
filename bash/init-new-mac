@@ -71,6 +71,14 @@ if [ ! -d '/Applications/Docker.app' ]; then
     docker pull mysql/mysql-server
 fi
 
+if [ ! -d '/Applications/DevCenter' ]; then
+    echo "I require cassandra datastax devcenter, I WOULD install it but"
+    echo "brew cask install --force devcenter"
+    echo "returns the following error"
+    echo "  Error: sha256 mismatch"
+    echo "might work now...    so try it"
+fi
+
 #install jq
 command -v jq >/dev/null 2>&1 || { \
 	echo "I require jq, installing"
