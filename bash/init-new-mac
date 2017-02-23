@@ -39,6 +39,11 @@ fi
 #        brew cask install iterm2
 #fi
 
+if [ ! -d /Applications/Screenhero.app ]; then
+	echo "I require screenhero for slack"
+	brew cask install screenhero
+fi
+
 if [ ! -d /Applications/iTerm.app ]; then
         echo "I require iterm2 beta, installing"
         brew cask install iterm2-beta
