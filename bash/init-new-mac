@@ -88,6 +88,12 @@ if [ ! -d '/Applications/GitHub Desktop.app' ]; then
     brew cask install github-desktop
 fi
 
+#install jmeter
+command -v jmeter >/dev/null 2>&1 || { \
+	echo "I require jmeter, installing"
+	brew install jmeter
+}
+
 
 #install jq
 command -v jq >/dev/null 2>&1 || { \
