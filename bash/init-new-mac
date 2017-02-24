@@ -39,6 +39,11 @@ fi
 #        brew cask install iterm2
 #fi
 
+if [ ! -d /Applications/Cyberduck.app ]; then
+	echo "I require cyberduck ftp client"
+	brew cask install cyberduck
+fi
+
 if [ ! -d /Applications/Screenhero.app ]; then
 	echo "I require screenhero for slack"
 	brew cask install screenhero
