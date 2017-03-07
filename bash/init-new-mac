@@ -94,6 +94,12 @@ if [ ! -d '/Applications/GitHub Desktop.app' ]; then
 fi
 
 #install jmeter
+command -v adb >/dev/null 2>&1 || { \
+	echo "I require android tools, installing"
+	brew install android-platform-tools
+}
+
+#install jmeter
 command -v jmeter >/dev/null 2>&1 || { \
 	echo "I require jmeter, installing"
 	brew install jmeter
